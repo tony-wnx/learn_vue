@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpt></cpt>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <h2>{{msg1}}</h2>
+            <h2>{{msg2}}</h2>
+            <button @click="btnClick">点击</button>
+            <cpt2></cpt2>
+        </div>
+    </template>
+
+    <template id="ccptTemp">
+        <div>
+            <h2>{{ccmsg1}}</h2>
+            <h2>{{ccmsg2}}</h2>
+            <button @click="ccbtnClick">子子组件按钮</button>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'Vue对象中的数据'
+            },
+            components:{
+                cpt:{
+                    template:'#cptTemp',
+                    data(){
+                        return {
+                            msg1:'子组件中的数据1',
+                            msg2:'子组件中的数据2'
+                        }
+                    },
+                    methods:{
+                        btnClick(){
+                            console.log(this.$parent)  // 打印结果：VueComponent{}对象
+                            console.log(this.$parent.message)
+                            this.msg1 = this.$parent.message
+                        }
+                    },
+                    components:{
+                        cpt2:{
+                            template:'#ccptTemp',
+                            data(){
+                                return {
+                                    ccmsg1:'子子组件中的msg1',
+                                    ccmsg2:'子子组件中的msg2'
+                                }
+                            },
+                            methods:{
+                                ccbtnClick(){
+                                    console.log(this.$parent)   // 打印结果：VueComponent{}对象
+                                    console.log(this.$root)     // 打印结果：Vue{}对象
+                                    console.log('parent的msg: ' + this.$parent.msg1)
+                                    console.log('root的msg: ' + this.$root.message)
+                                    this.ccmsg = this.$parent.msg1
+                                    this.ccmsg2 = this.$root.msg2
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

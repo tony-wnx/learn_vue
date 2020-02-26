@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 定义函数的方法一：
+        const aaa = function(){
+
+        }
+
+        const obj = {
+            // 定义函数的方法二：
+            bbb:function(){
+
+            },
+            // 定义函数的方法三：
+            ccc(){
+                
+            }
+        }
+
+        // 定义函数的方法四：ES6箭头函数
+        // const ddd = (参数列表) => {}
+
+        // 1、函数没有参数
+        const fun1 = () => {}
+
+        // 2、函数有一个参数
+        const fun2 = (num) =>{ return num * num}
+        // 当参数只有一个，并且方法体只有一行，可以简写
+        const fun2 = num => num * num
+
+        // 3、函数有多个参数
+        const fun3 = (num1,num2) => {return num1 + num2}
+        // 当方法体只有一行，可以简写
+        const fun3 = (num1,num2) => num1 * num2
+    </script>
+</body>
+</html>

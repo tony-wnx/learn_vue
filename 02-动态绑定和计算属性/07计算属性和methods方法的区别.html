@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <!-- 主要区别在于性能问题上 -->
+       <!-- 同样是打印多次，使用计算属性只会调用一次totalPrice属性对应的get方法 -->
+       <!-- 而使用普通方法打印多次，会调用多次getTotalPrice()方法 -->
+       <!-- 如果方法中有for循环，那么计算属性只需循环一次即可，只要原来的值不发生改变，结果就会缓存起来;
+            methods方法会没调用一次就循环一次，所以性能差-->
+        <h2>计算属性：{{totalPrice}}</h2>
+        <h2>计算属性：{{totalPrice}}</h2>
+        <h2>计算属性：{{totalPrice}}</h2>
+        <h2>普通方法：{{getTotalPrice()}}</h2>
+        <h2>普通方法：{{getTotalPrice()}}</h2>
+        <h2>普通方法：{{getTotalPrice()}}</h2>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'计算属性和methods方法的区别',
+                books:[
+                    {id:001,name:'小狗钱钱',price:34},
+                    {id:002,name:'穷爸爸富爸爸',price:56},
+                    {id:003,name:'财富自由',price:68},
+                    {id:004,name:'穷查理宝典',price:168},
+                    {id:005,name:'人生海海',price:28},
+                ]
+            },
+            computed:{
+                totalPrice(){
+                    console.log('totalPrice')
+                    let result = 0
+                    for(let i=0;i<this.books.length;i++){
+                        result += this.books[i].price
+                    }
+                    return result
+                }
+            },
+            methods:{
+                getTotalPrice(){
+                    console.log('getTotalPrice')
+                    let result = 0
+                    for(let i=0;i<this.books.length;i++){
+                        result += this.books[i].price
+                    }
+                    return result
+                }
+            }
+        })
+    </script>
+</body>
+</html>

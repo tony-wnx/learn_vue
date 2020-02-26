@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 显示默认的books列表和cmessage内容 -->
+        <!-- <child :cmessage='message'></child> -->
+
+        <!-- 显示books列表和默认的cmessage -->
+        <!-- <child :cbooks='books'></child> -->
+
+        <!-- 显示传递过来的books列表和cmessage内容 -->
+        <child :cbooks='books' :cmessage='message'></child>
+    </div>
+
+    <!-- 模板 -->
+    <template id="child-cpt">
+        <!-- 这里有个需要注意的问题：在组件模板中必须有一个根元素，不能直接添加一系列元素，否组会报错：
+            [Vue warn]: Error compiling template:Component template should contain exactly one root element. If you are using v-if on multiple elements, use v-else-if to chain them instead.
+            所以,下边的<div></div>必须加上
+        -->
+        <div>
+            <h2>{{msg}}</h2>
+            <br>
+            <h2>{{cmessage}}</h2>
+            <br>
+            <ul>
+                <li v-for="(item,index) in cbooks">{{item}}--{{index}}</li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 子组件
+        const child = {
+            template:'#child-cpt',
+            data(){
+                return {
+                    msg:'子组件中的数据'
+                }
+            },
+            // props: 可以是数组，也可以是对象，这里的内容不要写成驼峰模式！！！
+            // 数组：
+            // props:['cbooks','cmessage']  
+
+            // 对象
+            props:{
+                // 一、简单的设置：指定前边的变量名的类型
+                // cbooks:Array,
+                // cmessage:String
+
+                // 二、复杂的设置：指定变量的类型、默认值、是否必须
+                // 11行被注释时，刷新页面，报错：vue.js:634 [Vue warn]: Invalid default value for prop "cbooks": Props with type Object/Array must use a factory function to return the default value.
+                // 意思是：当cbooks没有被传值，并且是对象或者数组类型时，必须通过一个函数返回默认值，也就是说default必须是
+                // 个函数
+                cbooks:{
+                    type:Array,
+                    // default:[]  这么写就会报上边提到的错误,要写成如下模式
+                    default(){
+                        return []
+                    }
+                },
+                cmessage:{
+                    type:String,
+                    default:'我是默认值'
+                }
+            }
+        }
+
+        // vue父组件
+        const app = new Vue({
+            el:'#app',
+            data:{
+                books:['小狗钱钱','穷爸爸富爸爸','穷查理宝典','财富自由'],
+                message:'Vue父组件对象中的数据'
+            },
+            components:{
+                child
+            }
+        })
+    </script>
+</body>
+</html>

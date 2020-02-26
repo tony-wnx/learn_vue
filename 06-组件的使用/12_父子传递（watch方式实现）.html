@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <childcpt :child-num="origionNum" @getnum="getNum"></childcpt>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <h2>data中的数据：{{childDataNum}}</h2>
+            <br>
+            <h2>props中的数据：{{childNum}}</h2>
+            <br>
+            <input type="text" v-model="childDataNum">
+            <br>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 子组件
+        const childcpt = {
+            template:'#cptTemp',
+            data(){
+                return {
+                    childDataNum:this.childNum
+                }
+            },
+            props:{
+                childNum:Number
+            },
+            watch:{
+                childDataNum(newValue){
+                    // 这里的‘getnum’不能是驼峰命名，否则会没有反应
+                    this.$emit('getnum',newValue)
+                }
+            }
+        }
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                messsage:'父子传递 watch方式实现',
+                origionNum:1
+            },
+            components:{
+                childcpt
+            },
+            methods:{
+                getNum(value){
+                    console.log(value)
+                    this.origionNum = parseInt(value)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

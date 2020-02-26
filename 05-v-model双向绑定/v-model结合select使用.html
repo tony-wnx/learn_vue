@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- select单选练习 -->
+        <!-- <select id="" v-model="fruit"> -->
+
+        <!-- select多选练习 -->
+        <select id="" v-model="fruits" multiple>
+            <option value="苹果">苹果</option>
+            <option value="香蕉">香蕉</option>
+            <option value="葡萄">葡萄</option>
+            <option value="哈密瓜">哈密瓜</option>
+            <option value="西瓜">西瓜</option>
+        </select>
+        您选择的水果是： {{fruit}}
+        <hr>
+        您喜欢吃的水果有哪些？ {{fruits}}
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-model结合select使用',
+                fruit:'苹果',
+                fruits:[]
+            }
+        })
+    </script>
+</body>
+</html>

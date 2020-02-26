@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <cpt1></cpt1> -->
+        <cpt3></cpt3>
+    </div>
+
+    <script type="text/x-template" id="cpt1">
+        <div>
+            <h2>script标签方法把html代码提取出来</h2>
+        </div>
+    </script>
+
+    <template id="cpt2">
+        <div>
+            <h2>template标签方法把html代码提取出来</h2>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 语法糖创建全局组件
+        Vue.component('cpt1',{
+            // 这样写的话，html代码一多，可读性就会很差，而且格式也不规整，所以我们把html代码提出去
+            // template:`
+            //     <div>
+            //         <h2>组件的分离写法</h2>
+            //     </div>
+            // `
+
+            // 提取代码后简洁方法
+            template:'#cpt2 '
+        })
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'组件模板分离写法'
+            },
+            components:{
+                cpt3:{
+                    template:'#cpt2'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

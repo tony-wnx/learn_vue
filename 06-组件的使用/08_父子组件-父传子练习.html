@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 这里必须把驼峰命名改成这种样式，否则报错 -->
+        <child :c-father-msg='fatherMsg' :c-movies='movies'></child>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp"> 
+        <!-- 这里有个需要注意的问题：在组件模板中必须有一个根元素，不能直接添加一系列元素，否组会报错：
+            [Vue warn]: Error compiling template:Component template should contain exactly one root element. If you are using v-if on multiple elements, use v-else-if to chain them instead.
+            所以,下边的<div></div>必须加上
+        -->
+        <div>
+            <h2>{{childMsg}}</h2>
+            <h2>{{cFatherMsg}}</h2>
+            <h2>
+                <ul>
+                    <li v-for="(item,index) in cMovies">{{index}}--{{item}}</li>
+                </ul>
+            </h2>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 子组件
+        const child = {
+            template:'#cptTemp',
+            data(){
+                return {
+                    childMsg:'子组件中的内容'
+                }
+            },
+            props:{
+                cFatherMsg:{
+                    type:String,
+                    default:'哈哈哈,我是默认字符串'
+                },
+                cMovies:{
+                    type:Array,
+                    default(){
+                        return ['秦时明月','一人之下','斗罗大陆']
+                    }
+                }
+            }
+        }
+        const app = new Vue({
+            el:'#app',
+            data:{
+                fatherMsg:'父组件中的内容',
+                movies:['海贼王','火影忍者','一拳超人','进击的巨人','名侦探柯南']
+            },
+            components:{
+                child
+            }
+        })
+    </script>
+</body>
+</html>

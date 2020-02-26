@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .content{
+        color: red
+    }
+</style>
+<body>
+    <div id="app">
+        <h2>没加任何属性：{{message}}</h2>
+        <h2 class="content">原始方法添加属性class="content"：{{message}}}</h2>
+
+        <!-- 引号中引用的是vue对象data中的content属性 -->
+        <h2 :class="content">动态绑定属性名:class="content"：{{message}}}</h2>
+
+        <!-- <h2 :class="{key1:value1,key2:value2....}">动态绑定对象{{message}}}</h2> -->
+        <!-- <h2 :class="{类名1:boolean,类名2:boolean....}">动态绑定对象{{message}}}</h2> -->
+        <!-- 一般不在此直接写死，而是把boolean值放到vue对象的data中，然后引用data中的boolean值，这样做的好处是在调试修改时方便 -->
+        <h2 :class="{content:false,line:false}">动态绑定对象-boolean值写死：{{message}}}</h2>
+
+        <!-- 当某class属性必须存在时，可以把该属性提出来，渲染时会把所有的class属性进行汇总显示 -->
+        <h2 class="title" :class="{'content':isContent,'line':isLine}">动态绑定对象-boolean值放到vue对象中，引用对象中的boolean：{{message}}}</h2>
+
+        <!-- 当绑定的属性太多，不方便时，可以将所有属性提出来，放到vue对象的methods中，然后调用该方法（这里必须是方法名+（）） -->
+        <h2 class="title" :class="getClasses()">动态绑定对象-boolean值放到vue对象中，引用对象中的boolean：{{message}}}</h2>
+
+        <!-- 每点击一次按钮，按钮颜色改变 -->
+        <button @click="btnClick">点击一下</button>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                message:'动态绑定class对象语法',
+                content:'content', // content属性指向style中定义的.content样式名
+                isContent:true,
+                isLine:true
+            },
+            methods:{
+                btnClick(){
+                    this.isContent = !this.isContent
+                },
+                getClasses(){
+                    return {'content':this.isContent,'line':this.isLine}
+                }
+            }
+        })
+    </script>
+</body>
+</html>

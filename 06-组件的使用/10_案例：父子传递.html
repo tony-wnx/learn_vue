@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        需求：
+            父组件中有两个变量值num1和num2，在子组件的input框中输入数值，使父组件的数值也跟着改变
+     -->
+    <div id="app">
+        <child :number1="num1" :number2="num2"></child>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <!-- 这样绑定子组件的props中的变量，当输入内容时会报错：
+                    vue.js:634 [Vue warn]: Avoid mutating a prop directly since the value will be 
+                overwritten whenever the parent component re-renders. 
+                    Instead, use a data or computed property based on the prop's value. Prop being 
+                mutated: "number1" (使用data或计算属性)
+            -->
+            <input type="text" v-model="number1">{{number1}}
+            <br>
+            <input type="text" v-model="number2">{{number2}}
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 子组件
+        const child = {
+            template:'#cptTemp',
+            data(){
+                return {}
+            },
+            props:{
+                number1:Number,
+                number2:Number
+            },
+            methods:{
+
+            }
+        }
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'案例：父子传递',
+                num1:1,
+                num2:2
+            },
+            components:{
+                child
+            }
+        })
+    </script>
+</body>
+</html>

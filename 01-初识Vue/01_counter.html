@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>当前计数为：{{counter}}</h2>
+        <!-- 方法一：使用v-for：click -->
+        <!-- <button v-on:click="counter++">+</button>
+        <button v-on:click="counter--">-</button> -->
+
+        <!-- 方法二：使用@click -->
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+    </div>
+
+    <script>
+        // 方法一：使用v-for：click
+        // let app = new Vue({
+        //     el:'#app',
+        //     data:{
+        //         counter:0
+        //     }
+        // })
+
+
+        // 方法二：使用@click绑定函数
+        let app = new Vue({
+            el:'#app',
+            data:{
+                counter:0
+            },
+            methods:{
+                increment(){
+                    this.counter++
+                },
+                decrement(){
+                    this.counter--
+                }
+            }
+        })
+    </script>
+</body>
+</html>

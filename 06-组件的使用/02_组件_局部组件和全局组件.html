@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component> -->
+        <cmp></cmp>
+        <cmp></cmp>
+        <cmp></cmp>
+    </div>
+
+    <div id="app2">
+        <!-- <my-component></my-component> -->
+        <cmp></cmp>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 定义组件
+        const myComponent = Vue.extend({
+            template:`
+                <div>
+                    <h2>hello,这里是内容区域</h2>
+                    <h2>这里是内容区域的主体</h2>
+                </div>
+            `
+        })
+
+        // 注册组件(全局组件,可以在多个Vue实例中使用)
+        // Vue.component('my-component',myComponent)
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'组件使用--局部组件和全局组件'
+            },
+            components:{
+                // 这里的组件标签名也不能是'驼峰'形式
+                // 在Vue对象内定义的组件--局部组件，只能在该Vue对象绑定的div中使用
+                cmp:myComponent
+            }
+        })
+
+        const app2 = new Vue({
+            el:'#app2',
+            data:{
+                message:'全局组件的使用'
+            }
+        })
+    </script>
+</body>
+</html>

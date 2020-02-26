@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 因为fullName是computed对象中的一个属性，所以不用写成{{fullName()}},但是它其实是调用的
+        fullName属性的get方法 -->
+        <h2>{{fullName}}</h2> 
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app =new Vue({
+            el:'#app',
+            data:{
+                message:'计算属性使用',
+                xing:'zhang',
+                ming:'mengmeng'
+            },
+            computed:{  // 计算属性其实是一个对象
+                // fullName:{  // computed对象的一个属性，只不过这个属性也是个对象
+
+                //     // computed对象的fullName属性有一个set方法和一个get方法，只不过一般不用set方法，
+                //     // 所以省略不写。一般情况下我们只需要get方法
+                //     // set: function(){   
+
+                //     // }, 省略set方法
+                //     get: function(){
+                //         return this.xing + ' ' + this.ming
+                //     }
+                // }
+
+                // fullName属性中只有一个get方法，所以还可以简写
+                fullName:function(){
+                    return this.xing + ' ' + this.ming
+                }
+            }
+        })
+    </script>
+</body>
+</html>

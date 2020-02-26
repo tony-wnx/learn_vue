@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>不加v-once：{{message}}</h2>
+        <h2 v-once>加了v-once：{{message}}</h2> 
+
+        <h2>不加v-html指令：{{url}}</h2>
+        <h2 v-html='url'>加了v-html指令：</h2>
+
+        <h2>{{msg}}，不加v-text的使用效果</h2>
+        <h2 v-text="msg">,加了v-text的使用效果</h2>
+
+        <h2>{{pre}}</h2>
+        <h2 v-pre>{{pre}}</h2>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-once的使用学习',
+                url:'<a href="http://www.baidu.com">百度一下</a>',
+                msg:'v-text的使用效果展示',
+                pre:'v-pre的使用效果展示'
+            }
+        })
+    </script>
+</body>
+</html>

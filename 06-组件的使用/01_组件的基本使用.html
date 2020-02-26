@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 组件使用步骤
+        // 1、创建组件
+        const myComponent = Vue.extend({
+            template:`
+                <div>
+                    <h2>hello,这里是内容区域</h2>
+                    <h2>这里是内容区域的主体</h2>
+                </div>
+            `
+        })
+        // 2、注册组件
+        // 注意事项：自定义的组件名称不能是'驼峰'命名，否则页面会报错
+        // 可以是单个单次，或者my-component这样都可以
+        Vue.component('my-component',myComponent)
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'组件的基本使用'
+            }
+        })
+    </script>
+</body>
+</html>

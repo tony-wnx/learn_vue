@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpt1></cpt1>
+    </div>
+
+    <template id="cpt1">
+        <div>
+            <!-- 报错：[Vue warn]: Property or method "message" is not defined on the instance but... -->
+            <!-- 说明：组件模板中不能引用Vue对象中的数据变量。那么组件自己肯定有一个存放数据的地方。 -->
+            <h2>{{message}}</h2>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 注册组件
+        Vue.component('cpt1',{
+            template:'#cpt1',
+            
+            // 报错:[Vue warn]: The "data" option should be a function that returns a per-instance value in component definitions.
+            // data:{
+            //     message:'组件中的数据'
+            // }
+
+            // 上边的报错说"data"必须是一个函数,而且必须返回一个对象
+            // 以下可以正常打印出message数据内容
+            data(){
+                return {message:'组件的数据'}
+            }
+        })
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'组件中不能引用vue对象中的数据变量'
+            }
+        })
+    </script>
+</body>
+</html>

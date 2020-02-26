@@ -1,0 +1,93 @@
+我们的一个程序中可能用到很多个js文件，每个人在不同的js文件中肯能会定义相同的变量名或者函数名，
+这时候进行解释写时候就会出现问题。
+
+例如：
+<script>
+    a.js
+    var flag = true
+    var name = 'xiaoming'
+    function sum(num1,num2){
+        return num1 + num2
+    }
+
+
+    b.js
+    var flag = false
+    var name = 'xiaoming'
+    function sum(num1,num2){
+        return num1 + num2
+    }
+
+    c.js
+    //  这时候，本来a.js中为true，然后根据条件满足，打印hahah，但是别人也在其他文件中定义了flag=false，
+    // 导致条件不满足
+    if(flag){
+        console.log("hahhah")
+    }
+</script>
+
+对于上面的问题，我们的解决办法是：使用封装闭包
+<script>
+    a.js
+    ;(function(){
+        var flag = true
+        var name = 'xiaoming'
+        function sum(num1,num2){
+            return num1 + num2
+        }
+    })()
+    
+    b.js
+    ;(function(){
+        var flag = false
+        var name = 'xiaoming'
+        function sum(num1,num2){
+            return num1 + num2
+        }
+    })()
+    
+     c.js
+     ;(function(){
+        if(flag){
+            console.log("hahhah")
+        }  
+     })()
+
+    //  这样写各个文件中的变量都包在一个函数中，有了作用域，不会再影响其他文件的变量。但是我们
+    // 不能在别的文件中使用已经定义好的函数，因为函数也有了作用域，要想使用只能在当前文件中再定义
+    // 一次。
+</script>
+
+对于上面的问题，我们的解决办法是：将需要用到的变量函数导出
+<script>
+    a.js
+    var moduleA = (function(){
+        var flag = true
+        var name = 'xiaoming'
+        function sum(num1,num2){
+            return num1 + num2
+        }
+
+        // 定义一个对象，放入需要导出的变量和函数，然后return返回
+        var obj = {}
+        obj.flag = flag;
+        obj.sum = sum;
+    })()
+    
+    // 其他js文件同理，导出moduleB、moduleC...
+    // 在其他文件中使用的时候：
+    var flag = moduleA.flag
+</script>
+
+现在一般都有封装好的模块化规范
+CommonJs、AMD、CMD、ES6的Modules
+ES6：
+    导出：
+    module.exports = {
+        flag,
+        name,      // 简写
+        sum:sum    // 完整写法
+    }
+
+    导入：
+    var {flag,name} = require('./aaa.js')

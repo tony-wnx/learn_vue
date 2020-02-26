@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 当方法本身不需要参数时，绑定方法名时带不带括号效果一样 -->
+        <button @click="btnClick1">按钮1</button>   // 打印结果：btnClick1点击，不带括号，无参
+        <br>
+        <button @click="btnClick2()">按钮2</button>  // 打印结果：btnClick2点击，带括号，无参，方法中无参
+        <br>
+
+        <!-- 调用时带的参数和实际方法中的参数一致，正常打印结果 -->
+        <!-- 调用时不带参数，实际方法中带参数，打印参数结果显示undefined -->
+        <button @click="btnClick3('123')">按钮3</button>  // 打印结果：btnClick3点击，带括号，带参123
+        <br>
+        <button @click="btnClick4()">按钮4</button>  // 打印结果：btnClick4点击，带括号，无参，方法中带参 ：undefined
+        <br>
+
+        <!-- 调用方法时不带括号，实际方法中带参数，打印参数显示浏览器生成的Event对象 -->
+        <button @click="btnClick5">按钮5</button>  // 打印结果：btnClick5点击，不带括号，不带参，方法中带参：[object MouseEvent]
+        <br>
+
+        <!-- 调用方法时，使用$event手动获取浏览器产生的event对象 -->
+        <button @click="btnClick6('haha',$event)">按钮6</button>  // 打印结果：btnClick6点击，带两个参数haha:[object MouseEvent]
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-on事件绑定使用注意事项'
+            },
+            methods:{
+                btnClick1(){
+                    console.log("btnClick1点击，不带括号，无参")
+                },
+                btnClick2(){
+                    console.log("btnClick2点击，带括号，无参，方法中无参")
+                },btnClick3(aaa){
+                    console.log("btnClick3点击，带括号，带参" + aaa)
+                },
+                btnClick4(abc){
+                    console.log("btnClick4点击，带括号，无参，方法中带参 ：" + abc)
+                },
+                btnClick5(bbb){
+                    console.log("btnClick5点击，不带括号，不带参，方法中带参" + bbb)
+                },
+                btnClick6(ccc,event){
+                    console.log("btnClick6点击，带两个参数" + ccc + ":" + event)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

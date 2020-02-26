@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 需求：我们有一个待选择的checkBox列表，但是具体内容是什么不是固定写死的，而是从
+        服务器返回来的数据列表，根据列表展现checkBox待选框 -->
+        <label v-for="item in likes" :for="item">
+            <input type="checkbox" :value="item" :id="item" v-model="movies">{{item}}
+        </label>
+        <br>
+        <h2>您喜欢的动漫有哪些？ {{movies}}</h2>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-model结合input值的绑定',
+                likes:['海贼王','火影忍者','进击的巨人','一人之下','妖精的尾巴'],
+                movies:[]
+            }
+        })
+    </script>
+</body>
+</html>

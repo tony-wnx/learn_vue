@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        需求：
+            父组件中有两个变量值num1和num2，在子组件的input框中输入数值，使父组件的数值也跟着改变
+     -->
+    <div id="app">
+        <child :number1="num1" 
+               :number2="num2" 
+               @inputbtn1="change1" 
+               @inputbtn2="change2"></child>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <h2>data中的数据：{{cnumber1}}</h2>
+            <br>
+            <h2>props中的数据：{{number1}}</h2>
+            <br>
+            <!-- 这里的绑定不推荐绑定父组件传递过来的props中的数据，而是绑定子组件自己data中的数据 -->
+            <!-- 这里虽然绑定了data中的数据，但是修改输入值时{{number1}}打印并没有跟着改变 -->
+            <!-- <input type="text" v-model="cnumber1"> -->
+
+            <!-- 做如下修改 -->
+            <input type="text" :value="cnumber1" @input="inputBtn1">
+            <br>
+            <h2>data中的数据：{{cnumber2}}</h2>
+            <br>
+            <h2>props中的数据：{{number2}}</h2>
+            <br>
+            <!-- <input type="text" v-model="cnumber2">{{cnumber2}} -->
+            <input type="text" :value="cnumber2" @input="inputBtn2">{{cnumber2}}
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 子组件
+        const child = {
+            template:'#cptTemp',
+            // 这里本来就是父组件传递过来的数据，传过来是什么就是什么，一般通过父组件自己修改，而不推荐
+            // 在子组件也对其进行修改 
+            props:{
+                number1:Number,
+                number2:Number
+            },
+            data(){
+                return {
+                    cnumber1:this.number1,
+                    cnumber2:this.number2
+                }
+            },
+            methods:{
+                inputBtn1(event){
+                    // console.log(event.target.value)
+                    this.cnumber1 = event.target.value
+                    this.$emit('inputbtn1',event.target.value)
+                },
+                inputBtn2(event){
+                    // console.log(event.target.value)
+                    this.cnumber2 = event.target.value
+                    this.$emit('inputbtn2',event.target.value)
+                }
+            }
+        }
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'案例：父子传递',
+                num1:1,
+                num2:2
+            },
+            components:{
+                child
+            },
+            methods:{
+                change1(value){
+                    this.num1 = parseInt(value)
+                },
+                change2(value){
+                    this.num2 = parseInt(value)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

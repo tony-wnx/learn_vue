@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 单选checkbox框 -->
+        <input type="checkbox" name="agree" v-model="isAgree">同一协议内容
+        <br>
+        是否同意协议内容：{{isAgree}}
+        <br>
+        <button :disabled="!isAgree">下一步</button>
+
+        <!-- 多选框 -->
+        <hr>
+        <input type="checkbox" value="海贼王" v-model="likes">海贼王
+        <input type="checkbox" value="犬夜叉" v-model="likes">犬夜叉
+        <input type="checkbox" value="火影忍者" v-model="likes">火影忍者
+        <input type="checkbox" value="妖精的尾巴" v-model="likes">妖精的尾巴
+        <input type="checkbox" value="进击的巨人" v-model="likes">进击的巨人
+        <br>
+        <h2>您喜欢看的动漫有哪些？   {{likes}}</h2>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-model结合checkbox使用',
+                isAgree:false,
+                likes:[]
+            }
+        })
+    </script>
+</body>
+</html>

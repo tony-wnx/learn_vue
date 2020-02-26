@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 这种div和嵌套在内的button都绑定了方法的情况下，点击按钮的同时也会触发点击div的方法 -->
+    <!-- <div id="app" @click="divClick"> -->
+        <!-- <button @click="btnClick">点击一下</button> -->
+    <!-- </div> -->
+
+    <!-- 1、为了实现点击按钮不触发点击div的效果，添加.stop修饰符 -->
+    <div id="app" @click="divClick">
+        <button @click.stop="btnClick">点击一下</button>
+        <br>
+
+        <!-- 2、当我们点击提交按钮时，会根据action指定的地址进行跳转，为了手动控制跳转位置，我们绑定一个方法，
+        但是绑定方法之后点击，仍然会跳转到action的地址，这时添加.prevnt修饰符，就会按绑定方法进行处理 -->
+        <form action="baidu">
+            <input type="submit" value="提交" @click.prevent.stop="selfSubmit">
+        </form>
+
+        <!-- 3、监听键盘的操作 -->
+        <input type="text" @keyup="keyup" @click.stop>
+
+        <!-- 4、只触发一次.once修饰符的使用 -->
+        <button @click.once="once" @click.stop>只触发一次</button>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-on的修饰符问题'
+            },
+            methods:{
+                divClick(){
+                    console.log('div点击效果展示')
+                },
+                btnClick(){
+                    console.log('button点击效果展示')
+                },
+                selfSubmit(){
+                    console.log('自己控制提交跳转')
+                },
+                keyup(){
+                    console.log('按键弹起触发')
+                },
+                once(){
+                    console.log('只触发一次的按钮点击事件')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

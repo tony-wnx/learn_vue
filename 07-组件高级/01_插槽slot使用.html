@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 我们提取出通用组件中的共性，把不确定的部分通过slot插槽进行填充，实现组件的复用 -->
+    <div id="app">
+        <!-- 不在模板中添加<slot>标签，在组件标签之间添加的内容不会显示 -->
+        <cpt><input type="text" placeholder="请输入内容"></cpt>
+        <cpt>
+            <!-- 一个插槽可以替换一大块html结构代码 -->
+            <div>
+                <label>用户名：</label>
+                <input type="text" placeholder="用户名">
+            </div>
+            <div>
+                <span>有多个div结构</span>
+            </div>
+        </cpt>
+        <cpt></cpt>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <span>组件文本</span>
+            <slot>默认值</slot>
+            <button>提交</button>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const cpt = {
+            template:'#cptTemp'
+        }
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'组件高级使用--slot插槽'
+            },
+            components:{
+                cpt
+            }
+        })
+    </script>
+</body>
+</html>

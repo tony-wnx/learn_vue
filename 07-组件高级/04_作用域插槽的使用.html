@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 需求：
+            子组件中默认展示是<li>形式的，现在在父组件中我想改变它默认的展示形式 -->
+    <div id="app">
+        <!-- 默认的展示形式li -->
+        <cpt></cpt>
+
+        <!-- 修改默认的展示形式 -->
+        <cpt>
+            <!-- 使用v-for的形式遍历子组件的movies的数据，然后拼接，但是在父组件中拿不到子组件中的movies,
+            所以子组件必须把数据给父组件传递过去 -->
+            <!-- <span v-for></span> -->
+
+            <!-- ①目的：把子组件的数据传递给父组件 -->
+            <!-- ③为了接收子组件传递过来的数据，必须有一个template(2.5.x之前，之后也可以是div) -->
+            <!-- ④这里的slot-scope指定的就是下边的插槽类型 -->
+            <template slot-scope="slot">
+                <!-- ⑤这里的slot.data中的data就是模板中slot标签里绑定的data，两者名称须一致 -->
+                <span v-for="item in slot.data">{{item}} ,</span>
+            </template>
+        </cpt>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <!-- slot插槽默认展示形式li -->
+            <!-- <slot> -->
+            <!-- ②为了实现把子组件中的数据传递给父组件,写成如下样式。其中:data名字可以随便起，
+            等号后边的名称就是子组件中数据的变量名 -->
+           <slot :data="movies">
+                <ul>
+                    <li v-for="item in movies">{{item}}</li>
+                </ul>
+           </slot>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'作用域插槽的使用'
+            },
+            components:{
+                cpt:{
+                    template:'#cptTemp',
+                    data(){
+                        return {
+                            movies:['海贼王','火影忍者','进击的巨人','一拳超人','一人之下']
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

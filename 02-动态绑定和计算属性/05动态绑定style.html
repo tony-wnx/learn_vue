@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>  
+    <div id="app">
+        <!-- color:'red' 必须带上引号，否则会把red当成变量名到vue对象的data中去寻找 -->
+        <h2 :style={color:'red',fontSize:'50px'}>{{message}},直接写死</h2>
+
+        <h2 :style={color:fontColor,fontSize:fontSize}>{{message}}，引用vue对象中定义的变量</h2>
+
+        <h2 :style="getStyles()">{{message}}，调用vue中定义的函数</h2>
+
+        <h2 :style="[baseColor,baseSize]">{{message}}，绑定数组语法</h2>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'动态绑定style',
+                fontColor:'blue',
+                fontSize:'100px',
+                baseColor:{color:'yellow'},
+                baseSize:{fontSize:'75px'}
+            },
+            methods:{
+                getStyles(){
+                    return {color:'orange',fontSize:'35px'}
+                }
+            }
+        })
+    </script>
+</body>
+</html>

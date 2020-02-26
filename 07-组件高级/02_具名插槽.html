@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 1、会替换第一个slot -->
+        <!-- <cpt><input type="text" placeholder="第一个" slot="first"></cpt> -->
+
+        <!-- 2、会替换第二个slot -->
+        <cpt><button slot="second">百度一下</button></cpt>
+
+        <!-- 3、会替换第三个slot -->
+        <!-- <cpt>替换没有名字的插槽</cpt>  -->
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <h2>具名插槽的使用</h2>
+            <slot name="first">默认值：第一个插槽</slot>
+            <br>
+            <slot name="second">默认值：第二个插槽</slot>
+            <br>
+            <slot>默认值：第三个插槽</slot>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const cpt = {
+            template:'#cptTemp'
+        }
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'具名插槽的使用'
+            },
+            components:{
+                cpt
+            }
+        })
+    </script>
+</body>
+</html>

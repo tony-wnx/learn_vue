@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 一、什么时候用箭头函数(当一个函数的参数还是一个函数的时候)
+        setTimeout(function(){
+            console.log(this)   // 打印结果：window
+        });
+
+        setTimeout(() => {
+            console.log(this)   // 打印结果：window
+        });
+
+        // 二、
+        const obj = {
+            fun1(){
+                // 打印结果：window
+                // setTimeout(function(){
+                //     console.log(this)
+                // }, 1000);
+
+                // 打印结果：{fun1: ƒ} (obj对象)
+                setTimeout(() => {
+                    console.log(this)
+                });
+            }
+        }
+        obj.fun1()
+
+        // 三、
+        const obj2 = {
+            fun1(){
+                // 这种写法打印的this都是window(这是通过一个call()函数传递了一个window对象进来)
+                setTimeout(function(){
+                    // 打印结果：window
+                    setTimeout(function(){
+                        console.log(this)
+                    });
+
+                    // 打印结果：window
+                    setTimeout(() => {
+                        console.log(this)
+                    });
+                });
+
+                // 打印结果：{fun1: ƒ} (obj对象)
+                setTimeout(() => {
+                    // 打印结果：window
+                    setTimeout(function(){
+                        console.log(this)
+                    });
+                    // 打印结果：Object
+                    setTimeout(() => {
+                        console.log(this)
+                    });
+                });
+            }
+        }
+        obj2.fun1()
+    </script>
+</body>
+</html>

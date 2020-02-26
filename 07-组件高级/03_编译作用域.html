@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- Vue对象和子组件中都定义了一个isShow变量，这里引用的是Vue对象中的变量
+            因为：cpt子组件在Vue的组件div中使用，那么在这其中用到的所有变量都是Vue对象的 -->
+        <cpt v-show="isShow"></cpt>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp">
+        <div>
+            <h2>组件内容</h2>
+
+            <!-- 这里引用的是子组件的变量 -->
+            <h2 v-show="isShow">子组件中引用子组件的变量</h2>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'编译作用域',
+                isShow:true
+            },
+            components:{
+                cpt:{
+                    template:'#cptTemp',
+                    data(){
+                        return {
+                            isShow:true
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

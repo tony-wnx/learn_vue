@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model双向绑定：当修改input输入框中的内容后，相应的vue对象中data的message内容也会
+        跟着改变；当在浏览器中通过app.message="hahah"修改message内容后，input输入框和{{msg}}也
+        都会相应的改变。  绑定是双向的！ -->
+        <input type="text" v-model="message">{{message}}
+        <br>
+        <!-- 只有v-bind指令，在浏览器通过app.msg="hahah"修改后，input输入框和{{msg}}都跟着发生了更改。
+        但是在input输入框内输入文字，{{msg}}和app.msg打印都没有发生改变 -->
+        <input type="text" :value="bindMsg">{{bindMsg}}
+        <br>
+        <!-- v-bind结合v-on实现v-model功能(通过v-on绑定了一个函数) -->
+        <input type="text" :value="onMsg" @input="changeValue">{{onMsg}}
+        <br>
+        <!-- 上边简化后的写法 -->
+        <input type="text" :value="onMsg" @input="onMsg = $event.target.value">{{onMsg}}
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-model双向绑定使用',
+                bindMsg:'v-bind可以实现部分v-model功能',
+                onMsg:'v-on可以实现部分v-model功能'
+            },
+            methods:{
+                changeValue(event){
+                    this.onMsg = event.target.value
+                }
+            }
+        })
+    </script>
+</body>
+</html>

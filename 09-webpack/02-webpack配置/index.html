@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 模块化开发，不需要在此进行这样的引用,直接在main.js中import后进行使用 -->
+    <!-- <script src=""></script> -->
+
+    <!-- 当一系列的js文件开发完成之后，不管是用commonJs、AMD、CMD、还是ES6的规范进行的开发，
+    使用webpack ./src/main.js ./dist/bundle.js 命令对js文件进行打包，只需要给定一个入口js
+    文件(main.js),webpack就会自动处理js文件之间的依赖。最后在html中引用打包好的js文件就可以了，
+    每次对js文件更新过后，需要重新执行打包命令 -->
+
+    <script src="./dist/bundle.js"></script>
+    
+</body>
+</html>

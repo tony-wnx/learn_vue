@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 使用$children时 -->
+        <!-- <cpt1></cpt1>
+        <cpt2></cpt2>
+        <cpt3></cpt3> -->
+
+        <!-- 使用$refs时 -->
+        <cpt1 ref="aaa"></cpt1>
+        <cpt2 ref="bbb"></cpt2>
+        <cpt3></cpt3>
+        <br>
+        <h2>{{childmsg}}</h2>
+        <br>
+        <h2>{{name2}}</h2>
+        <br>
+        <h2>{{name3}}</h2>
+        <br>
+        <button @click="detail">点击</button>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cptTemp1">
+        <div>
+            <ul>
+                <li v-for="item in movies">{{item}}</li>
+            </ul>
+        </div>
+    </template>
+    <template id="cptTemp2">
+        <div>
+           模板二
+        </div>
+    </template>
+    <template id="cptTemp3">
+        <div>
+           模板三
+        </div>
+    </template>
+
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'父子访问--父访问子',
+                childmsg:'',
+                name2:'',
+                name3:''
+            },
+            methods:{
+                detail(){
+                    // 需求：在父组件中直接获取子组件对象，操作子组件对象数据
+                    // 
+                    // 方法一：
+                    //      使用$children可以获取子组件对象数组，在<div>中引用了这几个组件，就会显示哪几个，
+                    // 上边引用了cpt1、cpt2、cpt3，浏览器显示：(3) [VueComponent, VueComponent, VueComponent]
+                    // $children存在的问题：
+                    //      从下边代码可以看到，要获取某个组件的数据，需要写死角标位置，当想要在<cpt1>和<cpt2>之间
+                    //  之间新插入一个组件<cpt4>时，通过之前写死的角标想要获取的组件数据就会出错(依次后延了一个)，为
+                    //  了解决这种问题，我们该用$refs
+                    // console.log(this.$children)   // 打印结果：返回一个数组，引用了哪个组件就会把它添加到数组
+                    // this.childmsg = this.$children[0].childmsg
+                    // this.name2 = this.$children[1].name
+                    // this.name3 = this.$children[2].name
+
+                    // 方法二：
+                    //      使用$refs:使用它需要再div中组件标签引用里添加ref属性，例：<cpt1 ref="aaa"></cpt1>
+                    //   为每个组件指定不同的ref，通过【this.$refs.ref的值.变量名】形式获取数据。
+                    // 使用$refs的好处：
+                    //      当想再<cpt1>和<cpt2>之间插入新的组件时，由于没有写死角标，可以正确获取想要的数据
+                    console.log(this.$refs)    // 打印结果：this.$refs默认返回一个空数组，在组件中指定ref后，就会添加到数组中
+                    this.childmsg = this.$refs.aaa.movies
+                    this.name2 = this.$refs.bbb.name
+                }
+            },
+            components:{
+                cpt1:{
+                    template:'#cptTemp1',
+                    data(){
+                        return{
+                            childmsg:'子组件的数据',
+                            movies:['海贼王','一人之下','一拳超人','火影忍者']
+                        }
+                    },
+                    methods:{
+                        showMsg(){
+                            console.log('子组件showMsg')
+                        }
+                    }
+                },
+                cpt2:{
+                    template:'#cptTemp2',
+                    data(){
+                        return {
+                            name:'模板2中的数据'
+                        }
+                    }
+                },
+                cpt3:{
+                    template:'#cptTemp3',
+                    data(){
+                        return {
+                            name:'模板3中的数据'
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

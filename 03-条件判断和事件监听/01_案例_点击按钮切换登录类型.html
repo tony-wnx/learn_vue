@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 这种方式来回切换登录方式存在一个问题，首先选择‘用户账号’登录，然后再输入框中输入内容，
+    这时候突然不想使用账号登录，想改用‘用户邮箱’进行登录，然后点击切换，切换到‘用户邮箱’登录，
+    这时会看到，前边的‘用户邮箱’字体切换了过来，但是原来输入到文本框中的内容也跟着切换了过来。
+    造成这种现象的原因是：vue在渲染页面时会先生成一个虚拟Dom，当切换登录方式后，它会去虚拟Dom中寻找
+    是不是也有一个label和input，如果有的话，就直接复用，替换其中的文字。
+    解决办法：在input中添加一个key，然后对比是发现key不一样，就会生成一个新的input -->
+    <div id="app">
+        <span v-if="isUser">
+            <label for="username">用户账号</label>
+            <input type="text" id="username" placeholder="用户账号" key="username">
+        </span>
+        <span v-else>
+            <label for="email">用户邮箱</label>
+            <input type="text" id="email" placeholder="用户邮箱" key="email">
+        </span>
+        <br>
+        <button  @click="change()">切换登录方式</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'案例：点击按钮切换登录方式',
+                isUser:true
+            },
+            methods:{
+                change(){
+                    this.isUser = !this.isUser
+                }
+            }
+        })
+    </script>
+</body>
+</html>

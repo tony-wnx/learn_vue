@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in books">{{item}}--{{index}}</li>
+        </ul>
+
+        <!-- v-for还可以遍历对象中的各个属性名和属性值，还有下标 -->
+        <ul>
+            <li v-for="(key,value,index) in info">{{key}}--{{value}}--{{index}}</li>
+        </ul>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'v-for的使用',
+                books:['小狗钱钱','穷爸爸富爸爸','财富自由','穷查理宝典','人生海海'],
+                info:{
+                    name:'zhangsan',
+                    age:28,
+                    sex:'man',
+                    address:'beijing'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

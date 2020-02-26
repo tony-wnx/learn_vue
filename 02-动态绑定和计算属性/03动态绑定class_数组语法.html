@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .content{
+        color: red
+    }
+    .line{
+        font-size:28px
+    }
+</style>
+<body>
+    <div id="app">
+        <h2 class="title" :class="[content,line]">{{message}},通过:class="[content,line]"实现</h2>
+
+        <h2 class="title" :class="getClasses()">{{message}},调用函数:class="getClasses()"实现</h2>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                message:'动态绑定class-数组语法',
+                content:'content',
+                line:'line'
+            },
+            methods:{
+                getClasses(){
+                    return [this.content,this.line]
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
