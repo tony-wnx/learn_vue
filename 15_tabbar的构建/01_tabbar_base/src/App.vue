@@ -47,6 +47,12 @@
         让文字居中显示
   */
   .tab-bar-item{
+    /* flex:1;的含义
+      flex-grow : 1; // 这意味着div将以与窗口大小相同的比例增长
+      flex-shrink : 1; // 这意味着div将以与窗口大小相同的比例缩小
+      flex-basis : 0; // 这意味着div没有这样的起始值，并且将根据可用的屏幕大小占用屏幕。
+                         例如： - 如果包装器中有3个div，则每个div将占用33％。 
+    */
     flex:1;
     text-align: center;
     /* 一般tabbar的高度都是49px */
