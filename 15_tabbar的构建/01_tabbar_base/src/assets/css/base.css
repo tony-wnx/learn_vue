@@ -1,0 +1,9 @@
+/* 一、修改默认样式
+  1、启动打开页面后,发现文字并不是紧挨着边框写的,而是隔着一段距离,这是因为默认body {display: block;margin: 8px;},
+      所以做如下修改。
+  2、修改完后,在main.js中引入该css文件 
+*/
+body{
+  margin:0;
+  padding: 0;
+}
