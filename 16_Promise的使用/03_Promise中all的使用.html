@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 需求：我们有两个请求,只有当连个请求都完成的时候才对结果进行处理
+    // new Promise((resolve,reject) => {
+    //   // 请求一
+    //   $.ajax({
+    //     url:'aaa',
+    //     success:function(data){
+    //       resolve(data)
+    //     }
+    //   });
+    // }),
+    // new Promise((resolve,reject) => {
+    //   // 请求二：
+    //   $.ajax({
+    //     url:'bbb',
+    //     success:function(data){
+    //       resolve(data)
+    //     }
+    //   });
+    // })
+
+    // 使用Promise.all()
+    Promise.all([
+      new Promise((resolve,reject) => {
+        setTimeout(() => {
+          resolve('请求一')
+        }, 1000);
+      }),
+      new Promise((resolve,reject) => {
+        setTimeout(() => {
+          resolve('请求二')
+        }, 2000);
+      })
+    ]).then(results => {
+      console.log(results);
+    })
+  </script>
+</body>
+</html>
